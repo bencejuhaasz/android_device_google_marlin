@@ -768,8 +768,6 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
-on property:sys.post_boot.parsed=1
-    start vendor.perfd
 
 on property:sys.boot_completed=1
     start vendor.power_sh
