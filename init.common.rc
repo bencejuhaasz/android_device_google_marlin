@@ -779,13 +779,37 @@ on property:sys.boot_completed=1
 
     # update cpusets now that boot is complete and we want better load balancing
     write /dev/cpuset/top-app/cpus 0-3
-    write /dev/cpuset/foreground/cpus 0-2
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-2
-    write /dev/cpuset/restricted/cpus 0-1
+    write /dev/cpuset/camera-daemon/cpus 1,3
+    write /dev/cpuset/foreground/cpus 0-1
+    write /dev/cpuset/background/cpus 3
+    write /dev/cpuset/system-background/cpus 2-3
+    write /dev/cpuset/restricted/cpus 2-3
+    
+    # Enable and set Schedtune foreground boosting value to a strict value for gaining a well-deserved responsivness boost with one extra snap on top of it;
+    write /dev/stune/foreground/schedtune.boost 5
+    
+    # Disable exception-trace and reduce some overhead that is caused by a certain amount and percent of kernel logging, in case your kernel of choice have it enabled;
+    write /proc/sys/debug/exception-trace 0
+    
+    
+    # FileSystem (FS) optimized tweaks & enhancements for a improved userspace experience;
+    write /proc/sys/fs/dir-notify-enable 0
+    write /proc/sys/fs/lease-break-time 20
+
+    # A couple of minor kernel entropy tweaks & enhancements for a slight UI responsivness boost;
+    write /proc/sys/kernel/random/read_wakeup_threshold 128
+    write /proc/sys/kernel/random/urandom_min_reseed_secs 96
+    write /proc/sys/kernel/random/write_wakeup_threshold 2560
+
+    # Kernel based tweaks that reduces the total amount of wasted CPU cycles and gives back a huge amount of needed performance as well as battery life savings to both the whole system and the user experience itself;
+    write /proc/sys/kernel/compat-log 0
+    write /proc/sys/kernel/panic 0
+    write /proc/sys/kernel/panic_on_oops 0
+    write /proc/sys/kernel/perf_cpu_time_max_percent 0
+    
 
     # Update DVR cpusets to runtime values.
-    write /dev/cpuset/kernel/cpus 0,1
+    write /dev/cpuset/kernel/cpus 2
     write /dev/cpuset/system/performance/cpus 2
     write /dev/cpuset/system/background/cpus 0
     write /dev/cpuset/system/cpus 0,2
