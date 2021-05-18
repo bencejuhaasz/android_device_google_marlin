@@ -884,7 +884,7 @@ on property:sys.boot_completed=1
     write /sys/module/bluetooth/parameters/disable_ertm Y
     write /sys/module/bluetooth/parameters/disable_esco Y
     write /sys/module/cifs/parameters/enable_oplocks N
-    write /sys/module/dwc3/parameters/ep_addr_rxdbg_mask0 
+    write /sys/module/dwc3/parameters/ep_addr_rxdbg_mask 0 
     write /sys/module/dwc3/parameters/ep_addr_txdbg_mask 0
     write /sys/module/dwc3_msm/parameters/disable_host_mode 0
     write /sys/module/hid/parameters/ignore_special_drivers 0
